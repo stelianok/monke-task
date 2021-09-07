@@ -23,7 +23,7 @@ interface TodoistTask {
   "comment_count": number;
   "creator": number;
   "created": string;
-  "due": Due;
+  "due"?: Due;
   "url": string;
 }
 
