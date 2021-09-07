@@ -54,7 +54,7 @@ function notifyNewTasks(client: any) {
     const tasksChanged = await CheckIfTasksChanged(todoistTasks);
     if (tasksChanged.needsUpdate) {
       const message = createMessage(tasksChanged.newTasks);
-      channel.send('@🔔・Notificações\n');
+      channel.send('<@&864163173712003072>\n');
       channel.send(`\n:bell: ${tasksChanged.newTasks.length} ** tarefas foram adicionadas ou modificadas: ** \n`);
       channel.send(`\n${message}`);
     }
