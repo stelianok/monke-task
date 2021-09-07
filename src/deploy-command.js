@@ -2,7 +2,8 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
-const { CLIENT_ID, DISCORD_TOKEN } = require('./config/secrets');
+const { CLIENT_ID, DISCORD_TOKEN } = require('../dist/config/secrets.js');
+
 const guildId = "864141656576098334"
 const commands = [
   new SlashCommandBuilder().setName('server').setDescription('Replies with server info!'),
