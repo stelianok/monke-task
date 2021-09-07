@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { todoist_token, project_id } from '../config.json';
 import { Task, TodoistTask } from './interfaces/Itasks';
 
+import { TODOIST_TOKEN } from './config/secrets';
 //https://api.todoist.com/rest/v1/tasks
 
 const baseURL = 'https://api.todoist.com/rest/v1/tasks';
-
+const project_id = "2273148315";
 
 function getFormattedTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
   const tasks: Task[] = todoistTasks.map((task: TodoistTask) => {
@@ -26,7 +26,7 @@ async function getTodoistTasks(): Promise<Task[]> {
   try {
     const response = await axios.get(formattedURL, {
       headers: {
-        "Authorization": `Bearer ${todoist_token}`
+        "Authorization": `Bearer ${TODOIST_TOKEN}`
       }
     });
     const data = response.data;
