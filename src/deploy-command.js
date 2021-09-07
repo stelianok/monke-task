@@ -3,7 +3,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 
 const { CLIENT_ID, DISCORD_TOKEN } = require('./config/secrets');
-const guildId = "762325895595687947"
+const guildId = "864141656576098334"
 const commands = [
   new SlashCommandBuilder().setName('server').setDescription('Replies with server info!'),
   new SlashCommandBuilder().setName('user').setDescription('Replies with user info!'),

@@ -49,7 +49,7 @@ function createMessage(tasks: Task[]): string {
 }
 
 function notifyNewTasks(client: any) {
-  const channel = client.channels.cache.get('762325914893156352');
+  const channel = client.channels.cache.get('864146427176943626');
   const timeId = setInterval(async () => {
     const tasksChanged = await CheckIfTasksChanged(todoistTasks);
     if (tasksChanged.needsUpdate) {
