@@ -3,12 +3,22 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "repository": "https://github.com/stelianok/monke-task.git",
+  "keywords": [
+    "discord",
+    "typescript",
+    "bot",
+    "heroku"
+  ],
   "author": "Kaua Steliano <stelianok@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/index.ts",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/index.ts",
-    "deploy-command": "node src/deploy-command.js"
+    "dev:deploy-command": "node src/deploy-command.ts",
+    "deploy-command": "node src/deploy-command.js",
+    "prebuild": "rimraf ./dist",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/index.ts"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
@@ -21,6 +31,7 @@
     "axios": "^0.21.4",
     "discord-api-types": "^0.22.0",
     "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1"
   }
 }
