@@ -1,6 +1,31 @@
+import { Task } from "../interfaces/Itasks";
+import { setTasks, todoistTasks } from "../tasks";
+import { getTodoistTasks } from "../todoistAPI";
 
+interface IMessage {
+  name: string;
+  description: string;
+  date: string;
+}
 
-function CheckIfTasksChanged() {
+function GetDifferenceBetweenTaskArrays(tasks: Task[], oldTasks: Task[]): Task[] {
+  const results = tasks.filter(({ name: id1 }) => !oldTasks.some(({ name: id2 }) => id2 === id1))
+
+  return results;
+}
+
+async function CheckIfTasksChanged(oldTasks: Task[]) {
+  const tasks = await getTodoistTasks();
+  const differenceBetweeenTaskArrays = GetDifferenceBetweenTaskArrays(tasks, oldTasks);
+
+  if (differenceBetweeenTaskArrays.length > 0) {
+    setTasks(tasks);
+    return { newTasks: differenceBetweeenTaskArrays, needsUpdate: true };
+
+  }
+  else {
+    return { newTasks: differenceBetweeenTaskArrays, needsUpdate: false };
+  }
 }
 
 function TimeInMinutes(timeInMinutes: number) {
@@ -8,12 +33,34 @@ function TimeInMinutes(timeInMinutes: number) {
   return timeInMilliseconds;
 }
 
-function notifyNewTasks(client: any) {
-  const channel = client.channels.cache.get('884547408082645062');
-  const ingreis = setInterval(() => {
-    channel.send("TA TUDO EM INGREIS AAAAA");
-  }, TimeInMinutes(30));
+function formattedMessage({ name, description, date }: IMessage): string {
+  const message = `\n:white_check_mark: **${name}**  📅 **A data de vencimento é:** ${date}\n${(description.length > 1) ? (`\n**Descrição:** ${description}\n`) : "\n"}`
+  return message;
+}
 
+function createMessage(tasks: Task[]): string {
+  const messageArray = tasks?.map((task: Task) => {
+    const { name, description, date } = task;
+    return formattedMessage({ name, description, date });
+  });
+
+  const message = messageArray.toString().replace(/,/g, "");
+  return message;
+}
+
+function notifyNewTasks(client: any) {
+  const channel = client.channels.cache.get('762325914893156352');
+  const timeId = setInterval(async () => {
+    const tasksChanged = await CheckIfTasksChanged(todoistTasks);
+    if (tasksChanged.needsUpdate) {
+      const message = createMessage(tasksChanged.newTasks);
+      channel.send(`\n:bell: ${tasksChanged.newTasks.length} ** tarefas foram adicionadas ou modificadas: ** \n`);
+      channel.send(`\n${message}`);
+    }
+
+    return tasksChanged;
+
+  }, TimeInMinutes(15));
   /*
   setTimeout(() => {
     clearInterval(ingreis);
