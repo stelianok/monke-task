@@ -2,7 +2,7 @@
   "name": "monke-task",
   "version": "1.0.0",
   "engines": {
-    "node": "14.x"
+    "node": "16.x"
   },
   "main": "src/index.js",
   "repository": "https://github.com/stelianok/monke-task.git",
@@ -21,7 +21,8 @@
     "prebuild": "rimraf ./dist",
     "build": "tsc",
     "prestart": "npm run build",
-    "start": "node dist/index.js"
+    "start": "node dist/index.js",
+    "postinstall": "npm run build"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",
