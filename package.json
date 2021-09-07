@@ -16,7 +16,7 @@
     "dev:deploy-command": "node src/deploy-command.ts",
     "deploy-command": "node src/deploy-command.js",
     "prebuild": "rimraf ./dist",
-    "build": "tsc",
+    "build": "npm run tsc",
     "prestart": "npm run build",
     "start": "node dist/index.js"
   },
