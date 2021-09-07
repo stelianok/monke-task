@@ -1,2 +1,2 @@
-worker: npm deploy_command
+web: npm run deploy-command
 worker: npm start
