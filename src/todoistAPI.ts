@@ -7,6 +7,16 @@ import { TODOIST_TOKEN } from './config/secrets';
 const baseURL = 'https://api.todoist.com/rest/v1/tasks';
 const project_id = "2273148315";
 
+async function refreshAPI(): Promise<void> {
+  try {
+    await axios.get('https://polar-dawn-75985.herokuapp.com/');
+    console.log('Refreshing Dyno 🍌');
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
+
 function getFormattedTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
   const tasks: Task[] = todoistTasks.map((task: TodoistTask) => {
     const formattedTask: Task = {
@@ -41,4 +51,4 @@ async function getTodoistTasks(): Promise<Task[]> {
   }
 }
 
-export { getTodoistTasks }
+export { getTodoistTasks, refreshAPI }

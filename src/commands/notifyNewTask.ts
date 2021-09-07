@@ -1,6 +1,6 @@
 import { Task } from "../interfaces/Itasks";
 import { setTasks, todoistTasks } from "../tasks";
-import { getTodoistTasks } from "../todoistAPI";
+import { getTodoistTasks, refreshAPI } from "../todoistAPI";
 
 interface IMessage {
   name: string;
@@ -57,9 +57,7 @@ function notifyNewTasks(client: any) {
       channel.send(`\n:bell: ${tasksChanged.newTasks.length} ** tarefas foram adicionadas ou modificadas: ** \n`);
       channel.send(`\n${message}`);
     }
-
-    return tasksChanged;
-
+    await refreshAPI();
   }, TimeInMinutes(15));
   /*
   setTimeout(() => {
