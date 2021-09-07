@@ -7,13 +7,12 @@ import { Task, TodoistTask } from './interfaces/Itasks';
 const baseURL = 'https://api.todoist.com/rest/v1/tasks';
 
 
-
 function getFormattedTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
   const tasks: Task[] = todoistTasks.map((task: TodoistTask) => {
     const formattedTask: Task = {
       name: task.content,
       description: task.description,
-      date: task.due.string,
+      date: task.due ? task.due.string : "Sem data definida"
     }
     return formattedTask;
   });
@@ -21,7 +20,7 @@ function getFormattedTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
   return tasks;
 }
 
-async function getTodoistTasks(): Promise<Task[] | undefined> {
+async function getTodoistTasks(): Promise<Task[]> {
   const formattedURL = `${baseURL}?project_id=${project_id}`;
 
   try {
@@ -31,7 +30,7 @@ async function getTodoistTasks(): Promise<Task[] | undefined> {
       }
     });
     const data = response.data;
-
+    console.log(data);
     const tasks = getFormattedTodoistTasks(data);
 
     console.log(tasks);
@@ -39,6 +38,7 @@ async function getTodoistTasks(): Promise<Task[] | undefined> {
   }
   catch (err) {
     console.log(err);
+    return [];
   }
 }
 
