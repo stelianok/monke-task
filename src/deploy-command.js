@@ -1,8 +1,9 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { clientId, guildId, token } = require('../config.json');
 
+const { CLIENT_ID, DISCORD_TOKEN } = require('./config/secrets');
+const guildId = "762325895595687947"
 const commands = [
   new SlashCommandBuilder().setName('server').setDescription('Replies with server info!'),
   new SlashCommandBuilder().setName('user').setDescription('Replies with user info!'),
@@ -10,12 +11,12 @@ const commands = [
 ]
   .map(command => command.toJSON());
 
-const rest = new REST({ version: '9' }).setToken(token);
+const rest = new REST({ version: '9' }).setToken(DISCORD_TOKEN);
 
 (async () => {
   try {
     await rest.put(
-      Routes.applicationGuildCommands(clientId, guildId),
+      Routes.applicationGuildCommands(CLIENT_ID, guildId),
       { body: commands },
     );
 
