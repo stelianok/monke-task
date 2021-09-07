@@ -1,14 +1,25 @@
 
+import express from 'express';
 import { Client, Intents } from 'discord.js';
-import { token } from '../config.json';
+
+import { DISCORD_TOKEN } from './config/secrets';
+
 import { GetAllTasks } from './commands/getAllTasks';
 import { notifyNewTasks } from './commands/notifyNewTask';
+
 import { startTasks } from './tasks';
+
+const app = express();
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
+app.use(express.urlencoded({ extended: true }));
 
+app.use('/', (request, response) => {
+  return response.sendStatus(200);
+});
 
 startTasks();
+
 client.once('ready', async () => {
   console.log('Monke on 🐒😎🤏');
 });
@@ -31,4 +42,4 @@ client.on('interactionCreate', async (interaction: any) => {
   }
 });
 
-client.login(token);
+client.login(DISCORD_TOKEN);
