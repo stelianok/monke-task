@@ -30,10 +30,9 @@ async function getTodoistTasks(): Promise<Task[]> {
       }
     });
     const data = response.data;
-    console.log(data);
+
     const tasks = getFormattedTodoistTasks(data);
 
-    console.log(tasks);
     return tasks;
   }
   catch (err) {
