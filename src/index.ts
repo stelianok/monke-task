@@ -1,8 +1,7 @@
 
 import { Client, Intents } from 'discord.js';
 import { token } from '../config.json';
-import { Task } from './interfaces/Itasks';
-import { getTodoistTasks } from './tasks';
+import { GetAllTasks } from './commands/getAllTasks';
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 client.once('ready', () => {
@@ -15,21 +14,7 @@ client.on('interactionCreate', async (interaction: any) => {
   const { commandName } = interaction;
 
   if (commandName === 'tarefas') {
-    const tasks: Task[] | undefined = await getTodoistTasks();
-    const message = tasks?.map((task: Task) => {
-      const { name, description, date } = task;
-      return (`\n:white_check_mark: **${name}**  📅 **A data de vencimento é:** ${date}\n${(description.length > 1) ? (`\n**Descrição:** ${description}\n`) : "\n"}`);
-    });
-
-    if (message) {
-
-      const formattedMessage = message.toString().replace(/,/g, "");
-      await interaction.reply(formattedMessage);
-    }
-    else {
-      await interaction.reply("deu ruim rapaziada KKKKKKK");
-    }
-
+    await GetAllTasks(interaction);
   } else if (commandName === 'server') {
     await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
   } else if (commandName === 'user') {
