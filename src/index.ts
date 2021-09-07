@@ -3,13 +3,19 @@ import { Client, Intents } from 'discord.js';
 import { token } from '../config.json';
 import { GetAllTasks } from './commands/getAllTasks';
 import { notifyNewTasks } from './commands/notifyNewTask';
+import { startTasks } from './tasks';
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-client.once('ready', () => {
+
+
+startTasks();
+client.once('ready', async () => {
   console.log('Monke on 🐒😎🤏');
 });
 
-client.on('ready', () => notifyNewTasks(client));
+client.on('ready', async () => {
+  notifyNewTasks(client);
+});
 
 client.on('interactionCreate', async (interaction: any) => {
   if (!interaction.isCommand()) return;
@@ -26,4 +32,3 @@ client.on('interactionCreate', async (interaction: any) => {
 });
 
 client.login(token);
-
