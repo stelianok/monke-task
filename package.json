@@ -6,6 +6,7 @@
   "author": "Kaua Steliano <stelianok@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/index.ts",
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/index.ts",
     "deploy-command": "node src/deploy-command.js"
   },
