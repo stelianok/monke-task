@@ -53,7 +53,7 @@ Dentro do projeto, execute:
 
 ### Executando a API em modo de desenvolvimento
 
-`yarn dev:server`
+`yarn dev`
 
 --- 
 
