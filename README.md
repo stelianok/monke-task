@@ -23,7 +23,7 @@ Atualmente existem 3 comandos disponíveis para o bot:
 ## Funcionalidades 🛠✨
 
 ### Funcionalidade de notificação :bell:
-Usuários são notificados sempre que tarefa é adicionada ou modificada.
+Usuários são notificados sempre que uma tarefa é adicionada ou modificada.
 ![notification](https://user-images.githubusercontent.com/39469125/132856636-45d1f56b-ea26-4f63-80dd-af3cc365d5ed.png)
 
 ### Funcionalidade de listagem de tarefas 📑
