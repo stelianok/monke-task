@@ -6,9 +6,9 @@ monke-task é um bot de discord feito com NodeJS e typescript. A Função do bot
 
 ## Sumário 📖
 
-- [Comandos 👨‍💻](#Comandos)
+- [Comandos 👨‍💻](#comandos-)
 - [Funcionalidades 🛠✨](#funcionalidades-)
-- [Como-funciona 🧰](#Como-funciona-)
+- [Como-funciona 🧰](#como-funciona-)
 - [Instalação 👷‍♂️](#instalação-%EF%B8%8F)
 - [Contato 💼](#contato-)
 
