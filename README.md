@@ -2,7 +2,10 @@
 
 monke-task é um bot de discord feito com NodeJS e typescript. A Função do bot é ajudar alunos no servidor do discord da faculdade a se organizarem com relação as tarefas. Atualmente o bot possui 2 funcionalidades. É possível utilizar o comando "/tarefas" para listar todas as tarefas atribuídas por professores. O bot também notifica todos do servidor do discord sempre que uma tarefa nova é adicionada.
 
+Novas funcionalidades em breve!
+
 ---
+
 
 ## Sumário 📖
 
