@@ -6,8 +6,8 @@ const { CLIENT_ID, DISCORD_TOKEN } = require('../dist/config/secrets.js');
 
 const guildId = "864141656576098334"
 const commands = [
-  new SlashCommandBuilder().setName('server').setDescription('Replies with server info!'),
-  new SlashCommandBuilder().setName('user').setDescription('Replies with user info!'),
+  new SlashCommandBuilder().setName('server').setDescription('Retorna informações sobre o servidor!'),
+  new SlashCommandBuilder().setName('user').setDescription('Retorna informações sobre o usuário do comando!'),
   new SlashCommandBuilder().setName('tarefas').setDescription('Retorna lista de tarefas')
 ]
   .map(command => command.toJSON());
