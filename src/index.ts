@@ -24,6 +24,7 @@ startTasks();
 
 client.once('ready', async () => {
   console.log('Monke on 🐒😎🤏');
+  console.log(process.env.NODE_ENV);
 });
 
 client.on('ready', async () => {
