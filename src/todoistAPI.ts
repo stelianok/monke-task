@@ -5,7 +5,6 @@ import { TODOIST_TOKEN } from './config/secrets';
 //https://api.todoist.com/rest/v1/tasks
 
 const baseURL = 'https://api.todoist.com/rest/v1/tasks';
-const project_id = "2273148315";
 
 async function refreshAPI(): Promise<void> {
   try {
@@ -30,7 +29,13 @@ function getFormattedTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
   return tasks;
 }
 
-async function getTodoistTasks(): Promise<Task[]> {
+async function getTodoistTasks(guildId?: string): Promise<Task[]> {
+  let project_id = '2273148315';
+
+  if (guildId === '762325895595687947') {
+    project_id = '2274078148';
+  }
+
   const formattedURL = `${baseURL}?project_id=${project_id}`;
 
   try {

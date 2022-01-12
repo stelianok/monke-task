@@ -34,7 +34,9 @@ async function SendDiscordMessage(interaction: any, message?: string): Promise<v
 
 async function GetAllTasks(interaction: Interaction) {
   try {
-    const tasks: Task[] = await getTodoistTasks();
+
+
+    const tasks: Task[] = await getTodoistTasks(interaction.guild?.id);
 
     const message = createMessage(tasks);
 
