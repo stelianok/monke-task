@@ -29,6 +29,7 @@ client.once('ready', async () => {
 
 client.on('ready', async () => {
   notifyNewTasks(client);
+  client.user?.setActivity(`${process.env.NODE_ENV}`);
 });
 
 client.on('interactionCreate', async (interaction: any) => {
