@@ -36,10 +36,16 @@ client.on('interactionCreate', async (interaction: Interaction) => {
   if (!interaction.isCommand()) return;
 
   const { commandName } = interaction;
+
   if (commandName === 'tarefas') {
     await GetAllTasks(interaction);
   } else if (commandName === 'server') {
-    await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
+    if (interaction.guild) {
+      await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
+    }
+    else {
+      await interaction.reply("Deu ruim :(");
+    }
   } else if (commandName === 'user') {
     await interaction.reply(`Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`);
   }
