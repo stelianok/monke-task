@@ -1,6 +1,6 @@
 
 import express from 'express';
-import { Client, Intents } from 'discord.js';
+import { Client, Intents, Interaction } from 'discord.js';
 
 import { DISCORD_TOKEN } from './config/secrets';
 
@@ -32,11 +32,10 @@ client.on('ready', async () => {
 
 });
 
-client.on('interactionCreate', async (interaction: any) => {
+client.on('interactionCreate', async (interaction: Interaction) => {
   if (!interaction.isCommand()) return;
 
   const { commandName } = interaction;
-
   if (commandName === 'tarefas') {
     await GetAllTasks(interaction);
   } else if (commandName === 'server') {

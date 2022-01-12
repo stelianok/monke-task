@@ -1,3 +1,4 @@
+import { Interaction } from "discord.js";
 import { Task } from "../interfaces/Itasks";
 import { getTodoistTasks } from "../todoistAPI";
 
@@ -31,7 +32,7 @@ async function SendDiscordMessage(interaction: any, message?: string): Promise<v
   }
 }
 
-async function GetAllTasks(interaction: any) {
+async function GetAllTasks(interaction: Interaction) {
   try {
     const tasks: Task[] = await getTodoistTasks();
 
