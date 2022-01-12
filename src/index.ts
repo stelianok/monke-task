@@ -29,7 +29,7 @@ client.once('ready', async () => {
 
 client.on('ready', async () => {
   notifyNewTasks(client);
-  client.user?.setActivity(`${process.env.NODE_ENV}`);
+
 });
 
 client.on('interactionCreate', async (interaction: any) => {
@@ -41,6 +41,7 @@ client.on('interactionCreate', async (interaction: any) => {
     await GetAllTasks(interaction);
   } else if (commandName === 'server') {
     await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
+    client.user?.setActivity(`${process.env.NODE_ENV}`);
   } else if (commandName === 'user') {
     await interaction.reply(`Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`);
   }
