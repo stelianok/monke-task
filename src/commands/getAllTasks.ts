@@ -23,9 +23,13 @@ function createMessage(tasks: Task[]): string {
   return message;
 }
 
-async function SendDiscordMessage(interaction: any, message?: string): Promise<void> {
-  if (message) {
-    await interaction.reply(message);
+async function SendDiscordMessage(interaction: any, message: string): Promise<void> {
+  const messageArray = message.match(/.{1,2000}/g);
+
+  if (messageArray) {
+    messageArray.map(async (message) => {
+      await interaction.reply(message);
+    });
   }
   else {
     await interaction.reply("deu ruim rapaziada KKKKKKK");
