@@ -23,7 +23,9 @@ function createMessage(tasks: Task[]): string {
   return message;
 }
 
-async function SendDiscordMessage(interaction: any, message?: string): Promise<void> {
+async function SendDiscordMessage(interaction: any, message: string): Promise<void> {
+  //const messageArray = message.match(/(.|[\r\n]){1,2000}/g);
+
   if (message) {
     await interaction.reply(message);
   }
