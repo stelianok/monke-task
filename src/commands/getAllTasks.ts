@@ -23,11 +23,32 @@ function createMessage(tasks: Task[]): string {
   return message;
 }
 
+function separateLargerMessages(message: string, size: number) {
+  const numberOfMessages = Math.ceil(message.length / size);
+  const messagesArray = new Array(numberOfMessages);
+
+  for (let i = 0, o = 0; i < numberOfMessages; ++i, o += size) {
+    messagesArray[i] = message.substring(o, size)
+  }
+  return messagesArray;
+}
 async function SendDiscordMessage(interaction: any, message: string): Promise<void> {
-  //const messageArray = message.match(/(.|[\r\n]){1,2000}/g);
 
   if (message) {
-    await interaction.reply(message);
+    if (message.length > 2000) {
+      const messageArray = separateLargerMessages(message, 2000);
+
+      console.log(messageArray.length);
+      console.log(messageArray);
+      messageArray.map(async (message) => {
+        if (message.length > 0) {
+          await interaction.reply(message);
+        }
+      });
+    }
+    else {
+      await interaction.reply(message);
+    }
   }
   else {
     await interaction.reply("deu ruim rapaziada KKKKKKK");
