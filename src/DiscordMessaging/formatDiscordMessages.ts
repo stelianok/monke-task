@@ -72,6 +72,7 @@ function createMessagesArray(tasks: Task[]): string[] {
 
   return messagesArray;
 }
+
 function createMessage(tasks: Task[]): string {
   const messageArray = tasks?.map((task: Task) => {
     const { name, description, date } = task;
