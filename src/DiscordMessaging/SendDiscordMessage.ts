@@ -1,8 +1,6 @@
-import { Interaction } from "discord.js";
-
 export default async function SendDiscordMessages(interaction: any, messageArray: string[]): Promise<void> {
   if(messageArray.length < 1 || !messageArray){
-    await interaction.reply("Um erro ocorreu, não consegui encontrar as mensagens :(");
+    await interaction.reply("Sem Tarefas! 🥳");
   }
 
 
@@ -14,7 +12,9 @@ export default async function SendDiscordMessages(interaction: any, messageArray
       if(i == 0){
         await interaction.reply(messageArray[0]);
       }
-      await interaction.followUp(messageArray[i]);
+      else{
+        await interaction.followUp(messageArray[i]);
+      }
     }
   }
 }
