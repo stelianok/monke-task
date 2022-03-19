@@ -1,23 +1,20 @@
-import { separateLargerMessages } from "./formatDiscordMessages";
+import { Interaction } from "discord.js";
 
-export default async function SendDiscordMessage(interaction: any, message: string): Promise<void> {
-  if (message) {
-    if (message.length > 2000) {
-      const messageArray = separateLargerMessages(message, 2000);
+export default async function SendDiscordMessages(interaction: any, messageArray: string[]): Promise<void> {
+  if(messageArray.length < 1 || !messageArray){
+    await interaction.reply("Um erro ocorreu, não consegui encontrar as mensagens :(");
+  }
 
-      console.log(messageArray.length);
-      console.log(messageArray);
-      messageArray.map(async (message) => {
-        if (message.length > 0) {
-          await interaction.reply(message);
-        }
-      });
-    }
-    else {
-      await interaction.reply(message);
-    }
+
+  if(messageArray.length === 1){
+    await interaction.reply(messageArray[0]);
   }
   else {
-    await interaction.reply("deu ruim rapaziada KKKKKKK");
+    for(let i = 0; i <= messageArray.length; i++){
+      if(i == 0){
+        await interaction.reply(messageArray[0]);
+      }
+      await interaction.followUp(messageArray[i]);
+    }
   }
 }
