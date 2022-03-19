@@ -1,6 +1,6 @@
 import { Interaction } from "discord.js";
 
-import { createMessage, createMessagesArray } from "../DiscordMessaging/formatDiscordMessages"
+import { createMessagesArray } from "../DiscordMessaging/formatDiscordMessages"
 import SendDiscordMessage from "../DiscordMessaging/SendDiscordMessage";
 
 import { Task } from "../interfaces/Itasks";
