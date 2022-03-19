@@ -1,6 +1,6 @@
 import { Interaction } from "discord.js";
 
-import { createMessage } from "../DiscordMessaging/formatDiscordMessages"
+import { createMessage, createMessagesArray } from "../DiscordMessaging/formatDiscordMessages"
 import SendDiscordMessage from "../DiscordMessaging/SendDiscordMessage";
 
 import { Task } from "../interfaces/Itasks";
@@ -10,9 +10,9 @@ async function GetAllTasks(interaction: Interaction) {
   try {
     const tasks: Task[] = await getTodoistTasks(interaction.guild?.id);
 
-    const message = createMessage(tasks);
-
-    await SendDiscordMessage(interaction, message);
+    const messages = createMessagesArray(tasks);
+    
+    await SendDiscordMessage(interaction, messages);
   }
   catch (err) {
     console.log(err);
