@@ -11,6 +11,67 @@ function formattedMessage({ name, description, date }: IMessage): string {
   return message;
 }
 
+function countNumberOfCharsInArray(stringArr: string[]) {
+  let totalNumberOfChars = 0;
+
+  stringArr.map((message) => {
+    totalNumberOfChars += message.length;
+  });
+
+  return totalNumberOfChars;
+}
+
+function createMessagesMatrix(tasks: Task[]): string[][] {
+  const maxNumberOfCharsInAMessage = 2000;
+  let totalMessagesMatrix: string[][] = [];
+  let messageArray: string[] = [];
+  
+  let numberOfTasks = tasks.length;
+  let numberOfTasksIteratedOver = 0;
+
+  
+  tasks?.map((task: Task) => {
+    const { name, description, date } = task;
+
+    const messageToBeAppended = formattedMessage({ name, description, date });
+    const sizeOfMessageToBeAppended = messageToBeAppended.length;
+
+    let totalNumberOfCharsInMessageArray = countNumberOfCharsInArray(messageArray);
+
+    if((totalNumberOfCharsInMessageArray + sizeOfMessageToBeAppended) < maxNumberOfCharsInAMessage){
+      messageArray.push(messageToBeAppended);
+    }
+    else {
+      totalMessagesMatrix.push(messageArray);
+      messageArray = [];
+      messageArray.push(messageToBeAppended);
+      totalMessagesMatrix.push(messageArray);
+    }
+
+    numberOfTasksIteratedOver++;
+    
+    if((numberOfTasksIteratedOver === numberOfTasks) && totalMessagesMatrix.length < 1){
+      totalMessagesMatrix.push(messageArray);
+    }
+  });
+
+  return totalMessagesMatrix;
+}
+
+function createMessagesArray(tasks: Task[]): string[] {
+  const messagesMatrix: string[][] = createMessagesMatrix(tasks);
+  const messagesArray: string[] = [];
+
+  
+  messagesMatrix.map((messageArr) => {
+    const formattedMessage = messageArr.toString().replace(/,/g, "");
+
+    messagesArray.push(formattedMessage);
+
+  });
+
+  return messagesArray;
+}
 function createMessage(tasks: Task[]): string {
   const messageArray = tasks?.map((task: Task) => {
     const { name, description, date } = task;
@@ -21,18 +82,10 @@ function createMessage(tasks: Task[]): string {
   return message;
 }
 
-function separateLargerMessages(message: string, size: number) {
-  const numberOfMessages = Math.ceil(message.length / size);
-  const messagesArray = new Array(numberOfMessages);
-
-  for (let i = 0, o = 0; i < numberOfMessages; ++i, o += size) {
-    messagesArray[i] = message.substring(o, size)
-  }
-  return messagesArray;
-}
 
 
-export {createMessage,separateLargerMessages}
+
+export {createMessage, createMessagesArray }
 
 
 
