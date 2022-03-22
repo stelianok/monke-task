@@ -11,7 +11,7 @@ function GetDifferenceBetweenTaskArrays(tasks: Task[], oldTasks: Task[]): Task[]
 }
 
 async function CheckIfTasksChanged(oldTasks: Task[]) {
-  const tasks = await getTodoistTasks();
+  const tasks = await getTodoistTasks('');
   const differenceBetweeenTaskArrays = GetDifferenceBetweenTaskArrays(tasks, oldTasks);
 
   if (differenceBetweeenTaskArrays.length > 0) {
