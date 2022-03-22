@@ -7,7 +7,11 @@ interface IMessage {
 }
 
 function formattedMessage({ name, description, date }: IMessage): string {
-  const message = `\n:white_check_mark: **${name}**  📅 **A data de vencimento é:** ${date}\n${(description.length > 1) ? (`\n**Descrição:** ${description}\n`) : "\n"}`
+  const message = 
+  `\n:white_check_mark: **${name}** 
+  📅 **A data de vencimento é:**  ${date}\n
+  ${(description.length > 1) ? (`\n**Descrição:** ${description}\n`) : "\n"}`
+  
   return message;
 }
 
@@ -31,9 +35,9 @@ function createMessagesMatrix(tasks: Task[]): string[][] {
 
   
   tasks?.map((task: Task) => {
-    const { name, description, date } = task;
+    const { name, description, dateString } = task;
 
-    const messageToBeAppended = formattedMessage({ name, description, date });
+    const messageToBeAppended = formattedMessage({ name, description, date: dateString });
     const sizeOfMessageToBeAppended = messageToBeAppended.length;
 
     let totalNumberOfCharsInMessageArray = countNumberOfCharsInArray(messageArray);
@@ -75,8 +79,8 @@ function createMessagesArray(tasks: Task[]): string[] {
 
 function createMessage(tasks: Task[]): string {
   const messageArray = tasks?.map((task: Task) => {
-    const { name, description, date } = task;
-    return formattedMessage({ name, description, date });
+    const { name, description, dateString } = task;
+    return formattedMessage({ name, description, date: dateString });
   });
 
   const message = messageArray.toString().replace(/,/g, "");
