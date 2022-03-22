@@ -32,23 +32,24 @@ client.on('ready', async () => {
 
 });
 
+
 client.on('interactionCreate', async (interaction: Interaction) => {
   if (!interaction.isCommand()) return;
 
   const { commandName } = interaction;
 
   if (commandName === 'tarefas') {
-    await GetAllTasks(interaction);
-  } else if (commandName === 'server') {
-    if (interaction.guild) {
-      await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}`);
+    if(interaction.options.getSubcommand() === 'totais'){
+      await GetAllTasks(interaction);
     }
-    else {
-      await interaction.reply("Deu ruim :(");
+    else if(interaction.options.getSubcommand() === 'hoje'){
+      await interaction.reply("tarefas pra hoje UwU");
     }
-  } else if (commandName === 'user') {
-    await interaction.reply(`Your tag: ${interaction.user.tag}\nYour id: ${interaction.user.id}`);
+    else if(interaction.options.getSubcommand() === 'amanhã'){
+      await interaction.reply("tarefas pra amanhã OwO");
+    }
   }
+  
 });
 
 client.login(DISCORD_TOKEN);
