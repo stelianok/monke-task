@@ -8,9 +8,7 @@ interface IMessage {
 
 function formattedMessage({ name, description, date }: IMessage): string {
   const message = 
-  `\n:white_check_mark: **${name}** 
-  📅 **A data de vencimento é:**  ${date}\n
-  ${(description.length > 1) ? (`\n**Descrição:** ${description}\n`) : "\n"}`
+  `\n:white_check_mark: **${name}**  📅 ** A data de vencimento é:**  ${date}\n ${(description.length > 1) ? (`\n**Descrição:** ${description}\n`) : "\n"}`
   
   return message;
 }
