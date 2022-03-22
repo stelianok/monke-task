@@ -7,19 +7,40 @@ import { query } from 'express';
 
 const baseURL = 'https://api.todoist.com/rest/v1/tasks';
 
-
-
-function getFormattedTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
+function formatTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
   const tasks: Task[] = todoistTasks.map((task: TodoistTask) => {
     const formattedTask: Task = {
       name: task.content,
       description: task.description,
-      date: task.due ? task.due.string : "Sem data definida"
+      dateString: task.due ? task.due.string : "Sem data definida",
+      date: task.due ? task.due.date : '',
     }
     return formattedTask;
   });
 
   return tasks;
+}
+
+function sortTodoistTasks(todoistTasks: Task[]): Task[] {
+  let sortedTodoistTasks: Task[];
+  let tasksWithoutUndefinedDates: Task[];
+  let tasksWithUndefinedDates: Task[];
+
+  tasksWithoutUndefinedDates = todoistTasks.filter((task) => {
+    return task.date != ''
+  })
+  
+  tasksWithUndefinedDates = todoistTasks.filter((task) => {
+    return task.date == ''
+  })
+
+  sortedTodoistTasks = tasksWithoutUndefinedDates.sort((a,b) => {
+      return (new Date(a.date).getTime() - new Date(b.date).getTime())
+  });
+  
+  sortedTodoistTasks.push(...tasksWithUndefinedDates);
+    
+  return sortedTodoistTasks;
 }
 
 async function getTodoistTasks(filter: string, guildId?: string): Promise<Task[]> {
@@ -41,9 +62,10 @@ async function getTodoistTasks(filter: string, guildId?: string): Promise<Task[]
     });
     const data = response.data;
 
-    const tasks = getFormattedTodoistTasks(data);
+    const tasks = formatTodoistTasks(data);
+    const sortedTasks = sortTodoistTasks(tasks);
 
-    return tasks;
+    return sortedTasks;
   }
   catch (err) {
     console.log(err);
