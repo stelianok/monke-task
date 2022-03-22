@@ -9,10 +9,10 @@ export default async function SendDiscordMessages(interaction: any, messageArray
   }
   else {
     for(let i = 0; i <= messageArray.length; i++){
-      if(i == 0){
+      if(i <= 0){
         await interaction.reply(messageArray[0]);
       }
-      else{
+      else {
         await interaction.followUp(messageArray[i]);
       }
     }
