@@ -6,9 +6,9 @@ import SendDiscordMessage from "../DiscordMessaging/SendDiscordMessage";
 import { Task } from "../interfaces/Itasks";
 import { getTodoistTasks } from "../todoistAPI";
 
-async function GetAllTasks(interaction: Interaction) {
+async function GetAllTasks(interaction: Interaction, filter: string) {
   try {
-    const tasks: Task[] = await getTodoistTasks(interaction.guild?.id);
+    const tasks: Task[] = await getTodoistTasks(filter, interaction.guild?.id);
 
     const messages = createMessagesArray(tasks);
     

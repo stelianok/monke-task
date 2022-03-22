@@ -40,13 +40,13 @@ client.on('interactionCreate', async (interaction: Interaction) => {
 
   if (commandName === 'tarefas') {
     if(interaction.options.getSubcommand() === 'totais'){
-      await GetAllTasks(interaction);
+      await GetAllTasks(interaction, '');
     }
     else if(interaction.options.getSubcommand() === 'hoje'){
-      await interaction.reply("tarefas pra hoje UwU");
+      await GetAllTasks(interaction, 'today');
     }
     else if(interaction.options.getSubcommand() === 'amanhã'){
-      await interaction.reply("tarefas pra amanhã OwO");
+      await GetAllTasks(interaction, 'tomorrow');
     }
   }
   

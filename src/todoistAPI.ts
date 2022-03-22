@@ -2,9 +2,12 @@ import axios from 'axios';
 import { Task, TodoistTask } from './interfaces/Itasks';
 
 import { TODOIST_TOKEN } from './config/secrets';
+import { query } from 'express';
 //https://api.todoist.com/rest/v1/tasks
 
 const baseURL = 'https://api.todoist.com/rest/v1/tasks';
+
+
 
 function getFormattedTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
   const tasks: Task[] = todoistTasks.map((task: TodoistTask) => {
@@ -19,19 +22,21 @@ function getFormattedTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
   return tasks;
 }
 
-async function getTodoistTasks(guildId?: string): Promise<Task[]> {
+async function getTodoistTasks(filter: string, guildId?: string): Promise<Task[]> {
   let project_id = '2273148315';
 
   if (guildId === '762325895595687947') {
     project_id = '2274078148';
   }
 
-  const formattedURL = `${baseURL}?project_id=${project_id}`;
-
   try {
-    const response = await axios.get(formattedURL, {
+    const response = await axios.get(baseURL, {
       headers: {
         "Authorization": `Bearer ${TODOIST_TOKEN}`
+      },
+      params: {
+        project_id: project_id,
+        filter: filter
       }
     });
     const data = response.data;
