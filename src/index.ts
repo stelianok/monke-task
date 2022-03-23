@@ -29,15 +29,14 @@ client.once('ready', async () => {
 
 client.on('ready', async () => {
   notifyNewTasks(client);
-
 });
 
-
+ 
 client.on('interactionCreate', async (interaction: Interaction) => {
   if (!interaction.isCommand()) return;
 
   const { commandName } = interaction;
-
+  
   if (commandName === 'tarefas') {
     if(interaction.options.getSubcommand() === 'totais'){
       await GetAllTasks(interaction, '');
