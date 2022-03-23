@@ -82,6 +82,7 @@ function createMessage(tasks: Task[]): string {
   });
 
   const message = messageArray.toString().replace(/,/g, "");
+  
   return message;
 }
 

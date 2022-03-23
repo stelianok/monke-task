@@ -12,7 +12,7 @@ function GetDifferenceBetweenTaskArrays(tasks: Task[], oldTasks: Task[]): Task[]
 }
 
 async function CheckIfTasksChanged(oldTasks: Task[]) {
-  const tasks = await getTodoistTasks('');
+  const tasks = await getTodoistTasks('', '762325895595687947');
   const differenceBetweeenTaskArrays = GetDifferenceBetweenTaskArrays(tasks, oldTasks);
 
   if (differenceBetweeenTaskArrays.length > 0) {
@@ -29,18 +29,29 @@ function TimeInMinutes(timeInMinutes: number) {
   return timeInMilliseconds;
 }
 
+function sendNotificationMessage(channel: TextChannel, tasks: Task[]){
+  const message = createMessage(tasks);
+
+  console.log(channel.id);
+
+  channel.send(`<@&${channel.id}>\n`);
+  channel.send(`\n:bell: ${tasks.length} ** tarefas foram adicionadas ou modificadas: ** \n`);
+  channel.send(`\n${message}`);
+}
+
 function notifyNewTasks(client: Client<boolean>) {
-  const channel = client.channels.cache.get('864146427176943626');
+  const notificationChannelId = "864163173712003072";
+  const debugNotificationChannelId = "956155530349543474";
+  const channel = client.channels.cache.get(debugNotificationChannelId) as TextChannel;
 
   setInterval(async () => {
     const tasksChanged = await CheckIfTasksChanged(todoistTasks);
+ 
     if (tasksChanged.needsUpdate) {
-      const message = createMessage(tasksChanged.newTasks);
-      (channel as TextChannel).send('<@&864163173712003072>\n');
-      (channel as TextChannel).send(`\n:bell: ${tasksChanged.newTasks.length} ** tarefas foram adicionadas ou modificadas: ** \n`);
-      (channel as TextChannel).send(`\n${message}`);
+      sendNotificationMessage(channel, tasksChanged.newTasks);
     }
-  }, TimeInMinutes(15));
+
+  }, TimeInMinutes(2));
 }
 
 export { notifyNewTasks }
