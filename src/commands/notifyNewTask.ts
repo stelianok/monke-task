@@ -1,3 +1,4 @@
+import { Client, TextChannel } from "discord.js";
 import { createMessage } from "../DiscordMessaging/formatDiscordMessages";
 import { Task } from "../interfaces/Itasks";
 import { setTasks, todoistTasks } from "../tasks";
@@ -28,15 +29,16 @@ function TimeInMinutes(timeInMinutes: number) {
   return timeInMilliseconds;
 }
 
-function notifyNewTasks(client: any) {
+function notifyNewTasks(client: Client<boolean>) {
   const channel = client.channels.cache.get('864146427176943626');
-  const timeId = setInterval(async () => {
+
+  setInterval(async () => {
     const tasksChanged = await CheckIfTasksChanged(todoistTasks);
     if (tasksChanged.needsUpdate) {
       const message = createMessage(tasksChanged.newTasks);
-      channel.send('<@&864163173712003072>\n');
-      channel.send(`\n:bell: ${tasksChanged.newTasks.length} ** tarefas foram adicionadas ou modificadas: ** \n`);
-      channel.send(`\n${message}`);
+      (channel as TextChannel).send('<@&864163173712003072>\n');
+      (channel as TextChannel).send(`\n:bell: ${tasksChanged.newTasks.length} ** tarefas foram adicionadas ou modificadas: ** \n`);
+      (channel as TextChannel).send(`\n${message}`);
     }
   }, TimeInMinutes(15));
 }
