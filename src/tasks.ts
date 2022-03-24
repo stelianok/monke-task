@@ -5,7 +5,7 @@ import { getTodoistTasks } from "./todoistAPI";
 var todoistTasks: Task[];
 
 function startTasks() {
-  getTodoistTasks('','762325895595687947').then((response) => {
+  getTodoistTasks('',).then((response) => {
     todoistTasks = response;
   }).catch((err) => {
     console.log(err);
