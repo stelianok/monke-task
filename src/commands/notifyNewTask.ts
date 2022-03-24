@@ -6,8 +6,22 @@ import { getTodoistTasks } from "../todoistAPI";
 
 
 function GetDifferenceBetweenTaskArrays(tasks: Task[], oldTasks: Task[]): Task[] {
-  const results = tasks.filter(({ name: id1 }) => !oldTasks.some(({ name: id2 }) => id2 === id1))
 
+  const results = tasks.filter(
+    ({ name: newName, date: newDate, description: newDescription }) => (
+       !oldTasks.some(({ name: oldName, date: oldDate, description: oldDescription }) => {
+        if((newName === oldName) && (newDate === oldDate) && (newDescription === oldDescription)){
+          return true;
+        }
+        else {
+          return false;
+        }
+      })
+      ));
+
+    console.log(results);
+
+  
   return results;
 }
 
@@ -32,9 +46,9 @@ function TimeInMinutes(timeInMinutes: number) {
 function sendNotificationMessage(channel: TextChannel, tasks: Task[]){
   const message = createMessage(tasks);
 
-  console.log(channel.id);
+  const notificationRoleId = "956155701879799839";
 
-  channel.send(`<@&${channel.id}>\n`);
+  channel.send(`<@&${notificationRoleId}>\n`);
   channel.send(`\n:bell: ${tasks.length} ** tarefas foram adicionadas ou modificadas: ** \n`);
   channel.send(`\n${message}`);
 }
