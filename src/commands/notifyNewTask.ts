@@ -6,7 +6,6 @@ import { getTodoistTasks } from "../todoistAPI";
 
 
 function GetDifferenceBetweenTaskArrays(tasks: Task[], oldTasks: Task[]): Task[] {
-
   const results = tasks.filter(
     ({ name: newName, date: newDate, description: newDescription }) => (
        !oldTasks.some(({ name: oldName, date: oldDate, description: oldDescription }) => {
@@ -19,9 +18,6 @@ function GetDifferenceBetweenTaskArrays(tasks: Task[], oldTasks: Task[]): Task[]
       })
       ));
 
-    console.log(results);
-
-  
   return results;
 }
 
