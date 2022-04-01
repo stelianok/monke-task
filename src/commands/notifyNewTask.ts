@@ -8,15 +8,15 @@ import { getTodoistTasks } from "../todoistAPI";
 function GetDifferenceBetweenTaskArrays(tasks: Task[], oldTasks: Task[]): Task[] {
   const results = tasks.filter(
     ({ name: newName, date: newDate, description: newDescription }) => (
-       !oldTasks.some(({ name: oldName, date: oldDate, description: oldDescription }) => {
-        if((newName === oldName) && (newDate === oldDate) && (newDescription === oldDescription)){
+      !oldTasks.some(({ name: oldName, date: oldDate, description: oldDescription }) => {
+        if ((newName === oldName) && (newDate === oldDate) && (newDescription === oldDescription)) {
           return true;
         }
         else {
           return false;
         }
       })
-      ));
+    ));
 
   return results;
 }
@@ -39,7 +39,7 @@ function TimeInMinutes(timeInMinutes: number) {
   return timeInMilliseconds;
 }
 
-function sendNotificationMessage(channel: TextChannel, tasks: Task[]){
+function sendNotificationMessage(channel: TextChannel, tasks: Task[]) {
   const message = createMessage(tasks);
 
   //const debugNotificationRoleId = "956155701879799839";
@@ -50,13 +50,13 @@ function sendNotificationMessage(channel: TextChannel, tasks: Task[]){
 }
 
 function notifyNewTasks(client: Client<boolean>) {
-  const notificationChannelId = "864163173712003072";
+  const notificationChannelId = "864146427176943626";
   //const debugNotificationChannelId = "956155530349543474";
   const channel = client.channels.cache.get(notificationChannelId) as TextChannel;
 
   setInterval(async () => {
     const tasksChanged = await CheckIfTasksChanged(todoistTasks);
- 
+
     if (tasksChanged.needsUpdate) {
       sendNotificationMessage(channel, tasksChanged.newTasks);
     }
