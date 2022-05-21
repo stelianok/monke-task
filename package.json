@@ -2,7 +2,7 @@
   "name": "monke-task",
   "version": "1.0.0",
   "engines": {
-    "node": "17.x"
+    "node": "16.x"
   },
   "main": "src/index.js",
   "repository": "https://github.com/stelianok/monke-task.git",
