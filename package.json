@@ -16,8 +16,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/index.ts",
-    "deploy-command": "node dist/deploy-command.js",
-    "deploy-command-dev": "node src/deploy-command.js",
+    "deploy-command": "node src/deploy-command.js",
     "prebuild": "rimraf ./dist",
     "build": "tsc",
     "prestart": "npm run build",
