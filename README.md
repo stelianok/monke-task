@@ -2,10 +2,7 @@
 
 monke-task é um bot de discord feito com NodeJS e typescript. A Função do bot é ajudar alunos no servidor do discord da faculdade a se organizarem com relação as tarefas. Atualmente o bot possui 2 funcionalidades. É possível utilizar o comando "/tarefas" para listar todas as tarefas atribuídas por professores. O bot também notifica todos do servidor do discord sempre que uma tarefa nova é adicionada.
 
-Novas funcionalidades em breve!
-
 ---
-
 
 ## Sumário 📖
 
@@ -19,9 +16,9 @@ Novas funcionalidades em breve!
 
 Atualmente existem 3 comandos disponíveis para o bot:
 
-- `/tarefas` - Lista todas as tarefas atribuídas por professores, assim como suas respectivas datas de vencimento e descrição.
-- `/server` - Lista informações do servidor em que ele está atualmente.
-- `/user` - Retorna informações sobre o usuário utilizando o comando.
+- `/tarefas totais` - Lista todas as tarefas atribuídas por professores, assim como suas respectivas datas de vencimento e descrição.
+- `/tarefas hoje` - Lista todas as tarefas com data de entrega para hoje.
+- `/tarefas amanhã` - Lista todas as tarefas com data de entrega para amanhã.
 
 ## Funcionalidades 🛠✨
 
@@ -30,7 +27,9 @@ Usuários são notificados sempre que uma tarefa é adicionada ou modificada.
 ![notification](https://user-images.githubusercontent.com/39469125/132856636-45d1f56b-ea26-4f63-80dd-af3cc365d5ed.png)
 
 ### Funcionalidade de listagem de tarefas 📑
-Usuários podem usar um comando para listar todas as tarefas.
+
+Usuários podem usar um comando para listar todas as tarefas, utilizando três tipos diferente de filtro (totais, hoje e amanhã)
+
 ![tasks](https://user-images.githubusercontent.com/39469125/132856639-f597c548-14d0-4168-a7ad-a3c8c222d877.png)
 
 
@@ -49,10 +48,27 @@ Usuários podem usar um comando para listar todas as tarefas.
 
 criar arquivo chamado .env, no mesmo modelo de .env.example, e preenchê-lo com client_id da sua aplicação do discord, o token do seu bot de discord, assim como seu token de autenticação do todoist.
 
+### Configurando notificações
+
+Em `notifyNewTask.ts`, para que as notificações funcionem, é necessário configurar o id do canal  onde as mensagens de notificação serão disparadas.
+
+O id do "role" de notificações, também precisa ser configurado. 
+
+### Configurando id do projeto
+
+Em `todoistAPI.ts` o id do projeto do todoist (encontrado na url do site quando você está com o projeto aberto) precisa ser atualizado também.
+
 ### Instalando dependências
 
 Dentro do projeto, execute:
 `yarn` 
+
+
+### Cadastrando os comandos: 
+
+Para que os comandos funcionem no servidor, eles precisam ser ativados com o comando:  `yarn deploy-command`.
+
+O script vai atualizar a lista de comandos para todos os servidores em que o bot se encontra.
 
 ### Executando a API em modo de desenvolvimento
 
