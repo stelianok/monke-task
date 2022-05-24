@@ -60,9 +60,14 @@ async function getTodoistTasks(filter: string, guildId?: string): Promise<Task[]
         filter: filter
       }
     });
-    const data = response.data;
+    const data: Array<TodoistTask> = response.data;
 
-    const tasks = formatTodoistTasks(data);
+
+    const filteredData = data.filter((task) => {
+      return task.project_id.toString() == project_id
+    });
+
+    const tasks = formatTodoistTasks(filteredData);
     const sortedTasks = sortTodoistTasks(tasks);
 
     return sortedTasks;
