@@ -42,7 +42,7 @@ client.on('interactionCreate', async (interaction: Interaction) => {
       await GetAllTasks(interaction, '');
     }
     else if(interaction.options.getSubcommand() === 'hoje'){
-      await GetAllTasks(interaction, 'today');
+      await GetAllTasks(interaction, '');
     }
     else if(interaction.options.getSubcommand() === 'amanhã'){
       await GetAllTasks(interaction, 'tomorrow');
