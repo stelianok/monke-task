@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@discordjs/rest": "^0.1.0-canary.0",
+    "@doist/todoist-api-typescript": "^1.6.0",
     "@types/express": "^4.17.13",
     "axios": "^0.21.4",
     "discord-api-types": "^0.22.0",
