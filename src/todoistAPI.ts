@@ -11,12 +11,7 @@ let projectId = '2273148315';
 let projectDebugName = 'DebugTasks';
 let debugProjectId = '2274078148';
 
-if(TODOIST_TOKEN){
-  api = new TodoistApi(TODOIST_TOKEN);
-}
-else {
-  console.error("TODOIST TOKEN not found");
-}
+loadApi();
 
 async function getTodoistTasks(date?: 'today' | 'tomorrow', guildId?: string): Promise<ShortTask[]> {
   const filter = getFormattedFilter(guildId, date);
@@ -93,6 +88,13 @@ function sortTodoistTasks(todoistTasks: ShortTask[]): ShortTask[] {
   return sortedTodoistTasks;
 }
 
-
+function loadApi(){
+  if(TODOIST_TOKEN){
+    api = new TodoistApi(TODOIST_TOKEN);
+  }
+  else {
+    console.error("TODOIST TOKEN not found");
+  }
+}
 
 export { getTodoistTasks }
