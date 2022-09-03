@@ -5,7 +5,7 @@ import { getTodoistTasks } from "./todoistAPI";
 var todoistTasks: ShortTask[];
 
 function startTasks() {
-  getTodoistTasks('',).then((response) => {
+  getTodoistTasks().then((response) => {
     todoistTasks = response;
   }).catch((err) => {
     console.log(err);
