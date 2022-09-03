@@ -1,4 +1,3 @@
-
 import express from 'express';
 import { Client,  Interaction, GatewayIntentBits } from 'discord.js';
 

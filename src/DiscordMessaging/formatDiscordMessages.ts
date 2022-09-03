@@ -30,7 +30,6 @@ function createMessagesMatrix(tasks: ShortTask[]): string[][] {
   
   let numberOfTasks = tasks.length;
   let numberOfTasksIteratedOver = 0;
-
   
   tasks?.map((task: ShortTask) => {
     const { name, description, dateString } = task;
@@ -86,10 +85,4 @@ function createMessage(tasks: ShortTask[]): string {
   return message;
 }
 
-
-
-
 export {createMessage, createMessagesArray }
-
-
-
