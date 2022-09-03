@@ -1,14 +1,14 @@
-import { CommandInteraction, Interaction } from "discord.js";
+import { CommandInteraction } from "discord.js";
 
 import { createMessagesArray } from "../DiscordMessaging/formatDiscordMessages"
 import SendDiscordMessage from "../DiscordMessaging/SendDiscordMessage";
 
-import { Task } from "../interfaces/Itasks";
+import { ShortTask } from "../interfaces/Itasks";
 import { getTodoistTasks } from "../todoistAPI";
 
-async function GetAllTasks(interaction: CommandInteraction, filter: string) {
+async function GetTasksAndSendMessage(interaction: CommandInteraction, filter?: 'today' | 'tomorrow') {
   try {
-    const tasks: Task[] = await getTodoistTasks(filter, interaction.guild?.id);
+    const tasks: ShortTask[] = await getTodoistTasks(filter, interaction.guild?.id);
 
     const messages = createMessagesArray(tasks);
 
@@ -19,4 +19,4 @@ async function GetAllTasks(interaction: CommandInteraction, filter: string) {
   }
 }
 
-export { GetAllTasks }
+export { GetTasksAndSendMessage }

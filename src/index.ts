@@ -4,7 +4,7 @@ import { Client,  Interaction, GatewayIntentBits } from 'discord.js';
 
 import { DISCORD_TOKEN } from './config/secrets';
 
-import { GetAllTasks } from './commands/getAllTasks';
+import { GetTasksAndSendMessage } from './commands/getTasksAndSendMessage';
 import { notifyNewTasks } from './commands/notifyNewTask';
 
 import { startTasks } from './tasks';
@@ -39,15 +39,15 @@ client.on('interactionCreate', async (interaction: Interaction) => {
   
   if (commandName === 'tarefas') {
     if(interaction.options.getSubcommand() === 'totais'){
-      await GetAllTasks(interaction, '');
+      await GetTasksAndSendMessage(interaction);
     }
     else if(interaction.options.getSubcommand() === 'hoje'){
-      await GetAllTasks(interaction, '');
+      await GetTasksAndSendMessage(interaction, 'today');
     }
     else if(interaction.options.getSubcommand() === 'amanhã'){
-      await GetAllTasks(interaction, 'tomorrow');
+      await GetTasksAndSendMessage(interaction, 'tomorrow');
     }
-    await GetAllTasks(interaction, '');
+    // await GetTasksAndSendMessage(interaction);
   }
   
 });
