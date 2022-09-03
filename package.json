@@ -24,6 +24,9 @@
     "postinstall": "npm run build"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.36.1",
+    "@typescript-eslint/parser": "^5.36.1",
+    "eslint": "^8.23.0",
     "ts-node-dev": "^1.1.8"
   },
   "dependencies": {
