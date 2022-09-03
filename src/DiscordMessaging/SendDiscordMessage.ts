@@ -1,4 +1,4 @@
-import { CommandInteraction, Interaction } from "discord.js";
+import { CommandInteraction } from "discord.js";
 
 async function replyToMessages(interaction: CommandInteraction, messageArray: string[]){
   for(let i = 0; i <= messageArray.length; i++){

@@ -1,4 +1,3 @@
-
 import express from 'express';
 import { Client,  Interaction, GatewayIntentBits } from 'discord.js';
 
@@ -47,7 +46,6 @@ client.on('interactionCreate', async (interaction: Interaction) => {
     else if(interaction.options.getSubcommand() === 'amanhã'){
       await GetTasksAndSendMessage(interaction, 'tomorrow');
     }
-    // await GetTasksAndSendMessage(interaction);
   }
   
 });
