@@ -47,7 +47,6 @@ client.on('interactionCreate', async (interaction: Interaction) => {
     else if(interaction.options.getSubcommand() === 'amanhã'){
       await GetTasksAndSendMessage(interaction, 'tomorrow');
     }
-    // await GetTasksAndSendMessage(interaction);
   }
   
 });
