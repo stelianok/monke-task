@@ -1,8 +1,8 @@
-import { Task } from "./interfaces/Itasks";
+import { ShortTask } from "./interfaces/Itasks";
 import { getTodoistTasks } from "./todoistAPI";
 
 
-var todoistTasks: Task[];
+var todoistTasks: ShortTask[];
 
 function startTasks() {
   getTodoistTasks('',).then((response) => {
@@ -13,7 +13,7 @@ function startTasks() {
   }); 
 }
 
-function setTasks(newTaskArray: Task[]) {
+function setTasks(newTaskArray: ShortTask[]) {
   todoistTasks = newTaskArray;
 }
 

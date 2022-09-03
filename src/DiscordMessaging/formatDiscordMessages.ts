@@ -1,4 +1,4 @@
-import { Task } from "../interfaces/Itasks";
+import { ShortTask } from "../interfaces/Itasks";
 
 interface IMessage {
   name: string;
@@ -23,7 +23,7 @@ function countNumberOfCharsInArray(stringArr: string[]) {
   return totalNumberOfChars;
 }
 
-function createMessagesMatrix(tasks: Task[]): string[][] {
+function createMessagesMatrix(tasks: ShortTask[]): string[][] {
   const maxNumberOfCharsInAMessage = 2000;
   let totalMessagesMatrix: string[][] = [];
   let messageArray: string[] = [];
@@ -32,7 +32,7 @@ function createMessagesMatrix(tasks: Task[]): string[][] {
   let numberOfTasksIteratedOver = 0;
 
   
-  tasks?.map((task: Task) => {
+  tasks?.map((task: ShortTask) => {
     const { name, description, dateString } = task;
 
     const messageToBeAppended = formattedMessage({ name, description, date: dateString });
@@ -60,7 +60,7 @@ function createMessagesMatrix(tasks: Task[]): string[][] {
   return totalMessagesMatrix;
 }
 
-function createMessagesArray(tasks: Task[]): string[] {
+function createMessagesArray(tasks: ShortTask[]): string[] {
   const messagesMatrix: string[][] = createMessagesMatrix(tasks);
   const messagesArray: string[] = [];
 
@@ -75,8 +75,8 @@ function createMessagesArray(tasks: Task[]): string[] {
   return messagesArray;
 }
 
-function createMessage(tasks: Task[]): string {
-  const messageArray = tasks?.map((task: Task) => {
+function createMessage(tasks: ShortTask[]): string {
+  const messageArray = tasks?.map((task: ShortTask) => {
     const { name, description, dateString } = task;
     return formattedMessage({ name, description, date: dateString });
   });

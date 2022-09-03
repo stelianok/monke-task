@@ -1,10 +1,10 @@
 
 import express from 'express';
-import { Client, Intents, Interaction } from 'discord.js';
+import { Client,  Interaction, GatewayIntentBits } from 'discord.js';
 
 import { DISCORD_TOKEN } from './config/secrets';
 
-import { GetAllTasks } from './commands/getAllTasks';
+import { GetTasksAndSendMessage } from './commands/getTasksAndSendMessage';
 import { notifyNewTasks } from './commands/notifyNewTask';
 
 import { startTasks } from './tasks';
@@ -12,7 +12,7 @@ import { startTasks } from './tasks';
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,21 +33,21 @@ client.on('ready', async () => {
 
  
 client.on('interactionCreate', async (interaction: Interaction) => {
-  if (!interaction.isCommand()) return;
+  if (!interaction.isChatInputCommand()) return;
 
   const { commandName } = interaction;
   
   if (commandName === 'tarefas') {
     if(interaction.options.getSubcommand() === 'totais'){
-      await GetAllTasks(interaction, '');
+      await GetTasksAndSendMessage(interaction);
     }
     else if(interaction.options.getSubcommand() === 'hoje'){
-      await GetAllTasks(interaction, '');
+      await GetTasksAndSendMessage(interaction, 'today');
     }
     else if(interaction.options.getSubcommand() === 'amanhã'){
-      await GetAllTasks(interaction, 'tomorrow');
+      await GetTasksAndSendMessage(interaction, 'tomorrow');
     }
-    await GetAllTasks(interaction, '');
+    // await GetTasksAndSendMessage(interaction);
   }
   
 });

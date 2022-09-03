@@ -1,11 +1,11 @@
 import { Client, TextChannel } from "discord.js";
 import { createMessage } from "../DiscordMessaging/formatDiscordMessages";
-import { Task } from "../interfaces/Itasks";
+import { ShortTask } from "../interfaces/Itasks";
 import { setTasks, todoistTasks } from "../tasks";
 import { getTodoistTasks } from "../todoistAPI";
 
 
-function GetDifferenceBetweenTaskArrays(tasks: Task[], oldTasks: Task[]): Task[] {
+function GetDifferenceBetweenTaskArrays(tasks: ShortTask[], oldTasks: ShortTask[]): ShortTask[] {
   const results = tasks.filter(
     ({ name: newName, date: newDate, description: newDescription }) => (
       !oldTasks.some(({ name: oldName, date: oldDate, description: oldDescription }) => {
@@ -21,7 +21,7 @@ function GetDifferenceBetweenTaskArrays(tasks: Task[], oldTasks: Task[]): Task[]
   return results;
 }
 
-async function CheckIfTasksChanged(oldTasks: Task[]) {
+async function CheckIfTasksChanged(oldTasks: ShortTask[]) {
   const tasks = await getTodoistTasks('');
   const differenceBetweeenTaskArrays = GetDifferenceBetweenTaskArrays(tasks, oldTasks);
 
@@ -39,7 +39,7 @@ function TimeInMinutes(timeInMinutes: number) {
   return timeInMilliseconds;
 }
 
-function sendNotificationMessage(channel: TextChannel, tasks: Task[]) {
+function sendNotificationMessage(channel: TextChannel, tasks: ShortTask[]) {
   const message = createMessage(tasks);
 
   //const debugNotificationRoleId = "956155701879799839";

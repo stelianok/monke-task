@@ -1,15 +1,20 @@
-import axios from 'axios';
-import { Task, TodoistTask } from './interfaces/Itasks';
+import { TodoistApi, Task} from '@doist/todoist-api-typescript';
+import {  ShortTask } from './interfaces/Itasks';
 
 import { TODOIST_TOKEN } from './config/secrets';
-import { query } from 'express';
-//https://api.todoist.com/rest/v1/tasks
 
-const baseURL = 'https://api.todoist.com/rest/v1/tasks';
+let api: TodoistApi;
 
-function formatTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
-  const tasks: Task[] = todoistTasks.map((task: TodoistTask) => {
-    const formattedTask: Task = {
+if(TODOIST_TOKEN){
+  api = new TodoistApi(TODOIST_TOKEN);
+}
+else {
+  console.error("TODOIST TOKEN not found");
+}
+
+function formatTodoistTasks(todoistTasks: Task[]): ShortTask[] {
+  const tasks: ShortTask[] = todoistTasks.map((task: Task) => {
+    const formattedTask: ShortTask = {
       name: task.content,
       description: task.description,
       dateString: task.due ? task.due.string : "Sem data definida",
@@ -21,10 +26,10 @@ function formatTodoistTasks(todoistTasks: TodoistTask[]): Task[] {
   return tasks;
 }
 
-function sortTodoistTasks(todoistTasks: Task[]): Task[] {
-  let sortedTodoistTasks: Task[];
-  let tasksWithoutUndefinedDates: Task[];
-  let tasksWithUndefinedDates: Task[];
+function sortTodoistTasks(todoistTasks: ShortTask[]): ShortTask[] {
+  let sortedTodoistTasks: ShortTask[];
+  let tasksWithoutUndefinedDates: ShortTask[];
+  let tasksWithUndefinedDates: ShortTask[];
 
   tasksWithoutUndefinedDates = todoistTasks.filter((task) => {
     return task.date != ''
@@ -43,32 +48,37 @@ function sortTodoistTasks(todoistTasks: Task[]): Task[] {
   return sortedTodoistTasks;
 }
 
-async function getTodoistTasks(filter: string, guildId?: string): Promise<Task[]> {
-  let project_id = '2273148315';
+async function getTodoistTasks(date?: 'today' | 'tomorrow', guildId?: string): Promise<ShortTask[]> {
+
+  let projectName = 'DiscordTasks';
+  let projectId = '2273148315';
+
+  let projectDebugName = 'DebugTasks';
+  let debugProjectId = '2274078148';
+  
+  /* Filters need to be valid accordingly to these rules: 
+     https://todoist.com/help/articles/introduction-to-filters
+  */ 
+  let filter = `${date} & #${projectName}`;
 
   if (guildId === '762325895595687947') {
-    project_id = '2274078148';
+    projectId = debugProjectId;
+    filter = `${date} & #${projectDebugName}`;
   }
 
+  if(!date){
+    filter = '';
+  }
+ 
   try {
-    const response = await axios.get(baseURL, {
-      headers: {
-        "Authorization": `Bearer ${TODOIST_TOKEN}`
-      },
-      params: {
-        project_id: project_id,
-        filter: filter
-      }
-    });
-    const data: Array<TodoistTask> = response.data;
-
-
-    const filteredData = data.filter((task) => {
-      return task.project_id.toString() == project_id
+    
+    const tasks: Task[] = await api.getTasks({
+      filter: filter, 
+      projectId: Number.parseInt(projectId) 
     });
 
-    const tasks = formatTodoistTasks(filteredData);
-    const sortedTasks = sortTodoistTasks(tasks);
+    const formattedTasks = formatTodoistTasks(tasks);
+    const sortedTasks = sortTodoistTasks(formattedTasks);
 
     return sortedTasks;
   }
