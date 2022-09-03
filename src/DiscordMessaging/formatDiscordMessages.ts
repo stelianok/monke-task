@@ -7,9 +7,9 @@ interface IMessage {
 }
 
 function formattedMessage({ name, description, date }: IMessage): string {
-  const message = 
-  `\n:white_check_mark: **${name}**  📅 ** A data de vencimento é:**  ${date}\n ${(description.length > 1) ? (`\n**Descrição:** ${description}\n`) : "\n"}`
-  
+  const message =
+    `\n:white_check_mark: **${name}**  📅 ** A data de vencimento é:**  ${date}\n ${(description.length > 1) ? (`\n**Descrição:** ${description}\n`) : "\n"}`;
+
   return message;
 }
 
@@ -25,21 +25,21 @@ function countNumberOfCharsInArray(stringArr: string[]) {
 
 function createMessagesMatrix(tasks: ShortTask[]): string[][] {
   const maxNumberOfCharsInAMessage = 2000;
-  let totalMessagesMatrix: string[][] = [];
+  const totalMessagesMatrix: string[][] = [];
   let messageArray: string[] = [];
-  
-  let numberOfTasks = tasks.length;
+
+  const numberOfTasks = tasks.length;
   let numberOfTasksIteratedOver = 0;
-  
+
   tasks?.map((task: ShortTask) => {
     const { name, description, dateString } = task;
 
     const messageToBeAppended = formattedMessage({ name, description, date: dateString });
     const sizeOfMessageToBeAppended = messageToBeAppended.length;
 
-    let totalNumberOfCharsInMessageArray = countNumberOfCharsInArray(messageArray);
+    const totalNumberOfCharsInMessageArray = countNumberOfCharsInArray(messageArray);
 
-    if((totalNumberOfCharsInMessageArray + sizeOfMessageToBeAppended) < maxNumberOfCharsInAMessage){
+    if ((totalNumberOfCharsInMessageArray + sizeOfMessageToBeAppended) < maxNumberOfCharsInAMessage) {
       messageArray.push(messageToBeAppended);
     }
     else {
@@ -50,8 +50,8 @@ function createMessagesMatrix(tasks: ShortTask[]): string[][] {
     }
 
     numberOfTasksIteratedOver++;
-    
-    if((numberOfTasksIteratedOver === numberOfTasks) && totalMessagesMatrix.length < 1){
+
+    if ((numberOfTasksIteratedOver === numberOfTasks) && totalMessagesMatrix.length < 1) {
       totalMessagesMatrix.push(messageArray);
     }
   });
@@ -63,7 +63,7 @@ function createMessagesArray(tasks: ShortTask[]): string[] {
   const messagesMatrix: string[][] = createMessagesMatrix(tasks);
   const messagesArray: string[] = [];
 
-  
+
   messagesMatrix.map((messageArr) => {
     const formattedMessage = messageArr.toString().replace(/,/g, "");
 
@@ -81,8 +81,8 @@ function createMessage(tasks: ShortTask[]): string {
   });
 
   const message = messageArray.toString().replace(/,/g, "");
-  
+
   return message;
 }
 
-export {createMessage, createMessagesArray }
+export { createMessage, createMessagesArray };

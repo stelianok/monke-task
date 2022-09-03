@@ -5,4 +5,4 @@ interface ShortTask {
   dateString: string;
 }
 
-export { ShortTask};
+export { ShortTask };

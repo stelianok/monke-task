@@ -1,12 +1,12 @@
-import express from 'express';
-import { Client,  Interaction, GatewayIntentBits } from 'discord.js';
+import express from "express";
+import { Client, Interaction, GatewayIntentBits } from "discord.js";
 
-import { DISCORD_TOKEN } from './config/secrets';
+import { DISCORD_TOKEN } from "./config/secrets";
 
-import { GetTasksAndSendMessage } from './commands/getTasksAndSendMessage';
-import { notifyNewTasks } from './commands/notifyNewTask';
+import { GetTasksAndSendMessage } from "./commands/getTasksAndSendMessage";
+import { notifyNewTasks } from "./commands/notifyNewTask";
 
-import { startTasks } from './tasks';
+import { startTasks } from "./tasks";
 
 const PORT = process.env.PORT || 5000;
 
@@ -15,39 +15,39 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/', (request, response) => {
+app.use("/", (request, response) => {
   return response.sendStatus(200);
 });
 
 startTasks();
 
-client.once('ready', async () => {
-  console.log('Monke on 🐒😎🤏');
+client.once("ready", async () => {
+  console.log("Monke on 🐒😎🤏");
   console.log(process.env.NODE_ENV);
 });
 
-client.on('ready', async () => {
+client.on("ready", async () => {
   notifyNewTasks(client);
 });
 
- 
-client.on('interactionCreate', async (interaction: Interaction) => {
+
+client.on("interactionCreate", async (interaction: Interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   const { commandName } = interaction;
-  
-  if (commandName === 'tarefas') {
-    if(interaction.options.getSubcommand() === 'totais'){
+
+  if (commandName === "tarefas") {
+    if (interaction.options.getSubcommand() === "totais") {
       await GetTasksAndSendMessage(interaction);
     }
-    else if(interaction.options.getSubcommand() === 'hoje'){
-      await GetTasksAndSendMessage(interaction, 'today');
+    else if (interaction.options.getSubcommand() === "hoje") {
+      await GetTasksAndSendMessage(interaction, "today");
     }
-    else if(interaction.options.getSubcommand() === 'amanhã'){
-      await GetTasksAndSendMessage(interaction, 'tomorrow');
+    else if (interaction.options.getSubcommand() === "amanhã") {
+      await GetTasksAndSendMessage(interaction, "tomorrow");
     }
   }
-  
+
 });
 
 client.login(DISCORD_TOKEN);

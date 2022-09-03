@@ -64,4 +64,4 @@ function notifyNewTasks(client: Client<boolean>) {
   }, TimeInMinutes(15));
 }
 
-export { notifyNewTasks }
+export { notifyNewTasks };
