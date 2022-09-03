@@ -4,7 +4,6 @@ const { Routes } = require('discord-api-types/v9');
 
 const { CLIENT_ID, DISCORD_TOKEN } = require('../dist/config/secrets.js');
 
-const guildId = "864141656576098334"
 const commands = [
   new SlashCommandBuilder()
     .setName('tarefas')
