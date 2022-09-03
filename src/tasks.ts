@@ -1,7 +1,6 @@
 import { ShortTask } from "./interfaces/Itasks";
 import { getTodoistTasks } from "./todoistAPI";
 
-
 var todoistTasks: ShortTask[];
 
 function startTasks() {
