@@ -1,26 +1,26 @@
-import { TodoistApi, Task } from '@doist/todoist-api-typescript';
-import { ShortTask } from './interfaces/Itasks';
+import { TodoistApi, Task } from "@doist/todoist-api-typescript";
+import { ShortTask } from "./interfaces/Itasks";
 
-import { TODOIST_TOKEN } from './config/secrets';
+import { TODOIST_TOKEN } from "./config/secrets";
 
 let api: TodoistApi;
 
-let projectName = 'DiscordTasks';
-let projectId = '2273148315';
+const projectName = "DiscordTasks";
+let projectId = "2273148315";
 
-let projectDebugName = 'DebugTasks';
-let debugProjectId = '2274078148';
+const projectDebugName = "DebugTasks";
+const debugProjectId = "2274078148";
 
 loadApi();
 
-async function getTodoistTasks(date?: 'today' | 'tomorrow', guildId?: string): Promise<ShortTask[]> {
+async function getTodoistTasks(date?: "today" | "tomorrow", guildId?: string): Promise<ShortTask[]> {
   const filter = getFormattedFilter(guildId, date);
 
   try {
-    
+
     const tasks: Task[] = await api.getTasks({
-      filter: filter, 
-      projectId: Number.parseInt(projectId) 
+      filter: filter,
+      projectId: Number.parseInt(projectId)
     });
 
     const formattedTasks = formatTodoistTasks(tasks);
@@ -34,19 +34,19 @@ async function getTodoistTasks(date?: 'today' | 'tomorrow', guildId?: string): P
   }
 }
 
-function getFormattedFilter(guildId?: string, date?: 'today' | 'tomorrow') {
+function getFormattedFilter(guildId?: string, date?: "today" | "tomorrow") {
   /* Filters need to be valid accordingly to these rules: 
      https://todoist.com/help/articles/introduction-to-filters
-  */ 
+  */
   let filter = `${date} & #${projectName}`;
 
-  if (guildId === '762325895595687947') {
+  if (guildId === "762325895595687947") {
     projectId = debugProjectId;
     filter = `${date} & #${projectDebugName}`;
   }
 
-  if(!date){
-    filter = '';
+  if (!date) {
+    filter = "";
   }
 
   return filter;
@@ -58,8 +58,8 @@ function formatTodoistTasks(todoistTasks: Task[]): ShortTask[] {
       name: task.content,
       description: task.description,
       dateString: task.due ? task.due.string : "Sem data definida",
-      date: task.due ? task.due.date : '',
-    }
+      date: task.due ? task.due.date : "",
+    };
     return formattedTask;
   });
 
@@ -72,24 +72,24 @@ function sortTodoistTasks(todoistTasks: ShortTask[]): ShortTask[] {
   let tasksWithUndefinedDates: ShortTask[];
 
   tasksWithoutUndefinedDates = todoistTasks.filter((task) => {
-    return task.date != ''
-  })
-  
-  tasksWithUndefinedDates = todoistTasks.filter((task) => {
-    return task.date == ''
-  })
-
-  sortedTodoistTasks = tasksWithoutUndefinedDates.sort((a,b) => {
-      return (new Date(a.date).getTime() - new Date(b.date).getTime())
+    return task.date != "";
   });
-  
+
+  tasksWithUndefinedDates = todoistTasks.filter((task) => {
+    return task.date == "";
+  });
+
+  sortedTodoistTasks = tasksWithoutUndefinedDates.sort((a, b) => {
+    return (new Date(a.date).getTime() - new Date(b.date).getTime());
+  });
+
   sortedTodoistTasks.push(...tasksWithUndefinedDates);
-    
+
   return sortedTodoistTasks;
 }
 
-function loadApi(){
-  if(TODOIST_TOKEN){
+function loadApi() {
+  if (TODOIST_TOKEN) {
     api = new TodoistApi(TODOIST_TOKEN);
   }
   else {
@@ -97,4 +97,4 @@ function loadApi(){
   }
 }
 
-export { getTodoistTasks }
+export { getTodoistTasks };
