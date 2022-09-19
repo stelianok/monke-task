@@ -30,7 +30,6 @@ client.on("ready", async () => {
   notifyNewTasks(client);
 });
 
-
 client.on("interactionCreate", async (interaction: Interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
