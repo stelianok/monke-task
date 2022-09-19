@@ -1,12 +1,12 @@
 import { CommandInteraction } from "discord.js";
 
-import { createMessagesArray } from "../DiscordMessaging/formatDiscordMessages"
+import { createMessagesArray } from "../DiscordMessaging/formatDiscordMessages";
 import SendDiscordMessage from "../DiscordMessaging/SendDiscordMessage";
 
 import { ShortTask } from "../interfaces/Itasks";
 import { getTodoistTasks } from "../todoistAPI";
 
-async function GetTasksAndSendMessage(interaction: CommandInteraction, date?: 'today' | 'tomorrow') {
+async function GetTasksAndSendMessage(interaction: CommandInteraction, date?: "today" | "tomorrow") {
   try {
     const tasks: ShortTask[] = await getTodoistTasks(date, interaction.guild?.id);
 
@@ -19,4 +19,4 @@ async function GetTasksAndSendMessage(interaction: CommandInteraction, date?: 't
   }
 }
 
-export { GetTasksAndSendMessage }
+export { GetTasksAndSendMessage };
