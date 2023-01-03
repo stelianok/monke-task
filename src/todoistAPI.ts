@@ -20,7 +20,7 @@ async function getTodoistTasks(date?: "today" | "tomorrow", guildId?: string): P
 
     const tasks: Task[] = await api.getTasks({
       filter: filter,
-      projectId: Number.parseInt(projectId)
+      projectId: projectId
     });
 
     const formattedTasks = formatTodoistTasks(tasks);
