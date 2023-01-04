@@ -17,7 +17,6 @@ async function getTodoistTasks(date?: "today" | "tomorrow", guildId?: string): P
   const filter = getFormattedFilter(guildId, date);
 
   try {
-
     const tasks: Task[] = await api.getTasks({
       filter: filter,
       projectId: projectId
