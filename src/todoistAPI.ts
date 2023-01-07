@@ -11,22 +11,55 @@ let projectId = "2273148315";
 const projectDebugName = "DebugTasks";
 const debugProjectId = "2274078148";
 
+const examsLabel = "Prova";
+
 loadApi();
 
 async function getTodoistTasks(date?: "today" | "tomorrow", guildId?: string): Promise<ShortTask[]> {
   const filter = getFormattedFilter(guildId, date);
 
   try {
-
     const tasks: Task[] = await api.getTasks({
       filter: filter,
       projectId: projectId
     });
 
-    const formattedTasks = formatTodoistTasks(tasks);
-    const sortedTasks = sortTodoistTasks(formattedTasks);
+    const formattedTasks = getUsedAttributesFromTasks(tasks);
+
+    const tasksWithoutExams = formattedTasks.filter((task) => {
+      return !(task.labels.includes(examsLabel));
+    });
+
+    const sortedTasks = sortTodoistTasksByDateInAscendingOrder(tasksWithoutExams);
 
     return sortedTasks;
+  }
+  catch (err) {
+    console.log(err);
+    return [];
+  }
+}
+
+async function getTodoistExams(guildId?: string): Promise<ShortTask[]> {
+  const filter = getFormattedFilter(guildId);
+
+  try {
+    const tasks: Task[] = await api.getTasks({
+      filter: filter,
+      projectId: projectId
+    });
+
+    const formattedTasks = getUsedAttributesFromTasks(tasks);
+
+    const sortedTasks = sortTodoistTasksByDateInAscendingOrder(formattedTasks);
+
+    const exams = sortedTasks.filter((task) => {
+      return task.labels.includes(examsLabel);
+    });
+
+    console.log(exams);
+
+    return exams;
   }
   catch (err) {
     console.log(err);
@@ -52,13 +85,14 @@ function getFormattedFilter(guildId?: string, date?: "today" | "tomorrow") {
   return filter;
 }
 
-function formatTodoistTasks(todoistTasks: Task[]): ShortTask[] {
+function getUsedAttributesFromTasks(todoistTasks: Task[]): ShortTask[] {
   const tasks: ShortTask[] = todoistTasks.map((task: Task) => {
     const formattedTask: ShortTask = {
       name: task.content,
       description: task.description,
       dateString: task.due ? task.due.string : "Sem data definida",
       date: task.due ? task.due.date : "",
+      labels: task.labels
     };
     return formattedTask;
   });
@@ -66,7 +100,7 @@ function formatTodoistTasks(todoistTasks: Task[]): ShortTask[] {
   return tasks;
 }
 
-function sortTodoistTasks(todoistTasks: ShortTask[]): ShortTask[] {
+function sortTodoistTasksByDateInAscendingOrder(todoistTasks: ShortTask[]): ShortTask[] {
   let sortedTodoistTasks: ShortTask[];
   let tasksWithoutUndefinedDates: ShortTask[];
   let tasksWithUndefinedDates: ShortTask[];
@@ -97,4 +131,4 @@ function loadApi() {
   }
 }
 
-export { getTodoistTasks };
+export { getTodoistTasks, getTodoistExams };

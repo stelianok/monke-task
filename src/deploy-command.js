@@ -1,31 +1,30 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
-
-const { CLIENT_ID, DISCORD_TOKEN } = require('../dist/config/secrets.js');
+/* eslint @typescript-eslint/no-var-requires: "off" */
+const { SlashCommandBuilder,REST, Routes} = require("discord.js");
+const { CLIENT_ID, DISCORD_TOKEN } = require("../dist/config/secrets.js");
 
 const commands = [
   new SlashCommandBuilder()
-    .setName('tarefas')
-    .setDescription('Retorna lista de tarefas')
+    .setName("tarefas")
+    .setDescription("Retorna lista de tarefas")
     .addSubcommand(subcommand =>
       subcommand
-        .setName('totais')
-        .setDescription('lista todas as tarefas'))
+        .setName("totais")
+        .setDescription("lista todas as tarefas"))
     .addSubcommand(subcommand =>
       subcommand
-        .setName('hoje')
-        .setDescription('todas as atividades que precisam ser entregues hoje, as 23:59.')
+        .setName("hoje")
+        .setDescription("todas as atividades que precisam ser entregues hoje, as 23:59.")
     )
     .addSubcommand(subcommand =>
       subcommand
-        .setName('amanhã')
-        .setDescription('todas as atividades que precisam ser entregues amanhã, as 23:59.')
-    )
+        .setName("amanhã")
+        .setDescription("todas as atividades que precisam ser entregues amanhã, as 23:59.")
+    ),
+  new SlashCommandBuilder().setName("provas").setDescription("retorna lista de provas"),
 ]
   .map(command => command.toJSON());
 
-const rest = new REST({ version: '9' }).setToken(DISCORD_TOKEN);
+const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 
 (async () => {
   try {
@@ -34,7 +33,7 @@ const rest = new REST({ version: '9' }).setToken(DISCORD_TOKEN);
       { body: commands },
     );
 
-    console.log('Successfully registered application commands.');
+    console.log("Successfully registered application commands.");
   } catch (error) {
     console.error(error);
   }
