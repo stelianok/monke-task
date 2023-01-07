@@ -7,6 +7,7 @@ import { GetTasksAndSendMessage } from "./commands/getTasksAndSendMessage";
 import { notifyNewTasks } from "./commands/notifyNewTask";
 
 import { startTasks } from "./tasks";
+import { getExamsAndSendMessage } from "./commands/getExamsAndSendMessage";
 
 const PORT = process.env.PORT || 5000;
 
@@ -45,6 +46,9 @@ client.on("interactionCreate", async (interaction: Interaction) => {
     else if (interaction.options.getSubcommand() === "amanhã") {
       await GetTasksAndSendMessage(interaction, "tomorrow");
     }
+  }
+  if (commandName == "provas") {
+    await getExamsAndSendMessage(interaction);
   }
 
 });
