@@ -1,7 +1,5 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
-
+/* eslint @typescript-eslint/no-var-requires: "off" */
+const { SlashCommandBuilder,REST, Routes} = require("discord.js");
 const { CLIENT_ID, DISCORD_TOKEN } = require("../dist/config/secrets.js");
 
 const commands = [
@@ -25,7 +23,7 @@ const commands = [
 ]
   .map(command => command.toJSON());
 
-const rest = new REST({ version: "9" }).setToken(DISCORD_TOKEN);
+const rest = new REST({ version: "10" }).setToken(DISCORD_TOKEN);
 
 (async () => {
   try {
