@@ -22,8 +22,9 @@ async function getTodoistTasks(date?: "today" | "tomorrow", guildId?: string): P
       projectId: projectId
     });
 
-    const formattedTasks = formatTodoistTasks(tasks);
-    const sortedTasks = sortTodoistTasks(formattedTasks);
+    console.log(tasks);
+    const formattedTasks = getUsedAttributesFromTasks(tasks);
+    const sortedTasks = sortTodoistTasksByDateInAscendingOrder(formattedTasks);
 
     return sortedTasks;
   }
@@ -51,7 +52,7 @@ function getFormattedFilter(guildId?: string, date?: "today" | "tomorrow") {
   return filter;
 }
 
-function formatTodoistTasks(todoistTasks: Task[]): ShortTask[] {
+function getUsedAttributesFromTasks(todoistTasks: Task[]): ShortTask[] {
   const tasks: ShortTask[] = todoistTasks.map((task: Task) => {
     const formattedTask: ShortTask = {
       name: task.content,
@@ -65,7 +66,7 @@ function formatTodoistTasks(todoistTasks: Task[]): ShortTask[] {
   return tasks;
 }
 
-function sortTodoistTasks(todoistTasks: ShortTask[]): ShortTask[] {
+function sortTodoistTasksByDateInAscendingOrder(todoistTasks: ShortTask[]): ShortTask[] {
   let sortedTodoistTasks: ShortTask[];
   let tasksWithoutUndefinedDates: ShortTask[];
   let tasksWithUndefinedDates: ShortTask[];
