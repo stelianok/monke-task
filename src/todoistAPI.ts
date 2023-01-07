@@ -25,7 +25,12 @@ async function getTodoistTasks(date?: "today" | "tomorrow", guildId?: string): P
     });
 
     const formattedTasks = getUsedAttributesFromTasks(tasks);
-    const sortedTasks = sortTodoistTasksByDateInAscendingOrder(formattedTasks);
+
+    const tasksWithoutExams = formattedTasks.filter((task) => {
+      return !(task.labels.includes(examsLabel));
+    });
+
+    const sortedTasks = sortTodoistTasksByDateInAscendingOrder(tasksWithoutExams);
 
     return sortedTasks;
   }
