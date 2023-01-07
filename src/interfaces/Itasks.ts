@@ -3,6 +3,7 @@ interface ShortTask {
   description: string;
   date: string;
   dateString: string;
+  labels: string[];
 }
 
 export { ShortTask };
