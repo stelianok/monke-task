@@ -19,7 +19,8 @@ const commands = [
       subcommand
         .setName("amanhã")
         .setDescription("todas as atividades que precisam ser entregues amanhã, as 23:59.")
-    )
+    ),
+  new SlashCommandBuilder().setName("provas").setDescription("retorna lista de provas"),
 ]
   .map(command => command.toJSON());
 
