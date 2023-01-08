@@ -19,6 +19,7 @@ Atualmente existem 3 comandos disponíveis para o bot:
 - `/tarefas totais` - Lista todas as tarefas atribuídas por professores, assim como suas respectivas datas de vencimento e descrição.
 - `/tarefas hoje` - Lista todas as tarefas com data de entrega para hoje.
 - `/tarefas amanhã` - Lista todas as tarefas com data de entrega para amanhã.
+- `/provas` - Lista todas as provas com datas marcadas
 
 ## Funcionalidades 🛠✨
 
@@ -28,14 +29,13 @@ Usuários são notificados sempre que uma tarefa é adicionada ou modificada.
 
 ### Funcionalidade de listagem de tarefas 📑
 
-Usuários podem usar um comando para listar todas as tarefas, utilizando três tipos diferente de filtro (totais, hoje e amanhã)
+Usuários podem usar comandos para listar todas as tarefas, utilizando três tipos diferente de filtro (totais, hoje e amanhã) ou também exibir todas as provas agendadas utilizando um comando separado.
 
 ![tasks](https://user-images.githubusercontent.com/39469125/132856639-f597c548-14d0-4168-a7ad-a3c8c222d877.png)
 
-
 ## Como Funciona 🧰
 
- O bot lista todas as tarefas dentro de um projeto do todoist. Ele utiliza a API do todoist para fazer uma requisição do tipo GET da API do [todoist](https://developer.todoist.com/rest/v1/#overview) para ter acesso as tarefas. Toda vez que esse projeto é modificado com a adição de novas tarefas ou modificação de tarefas existentes, o bot notifica os usuários no discord.
+ O bot lista todas as tarefas dentro de um projeto do todoist. Ele utiliza a API do todoist para fazer uma requisição do tipo GET da API do [todoist](https://developer.todoist.com/rest/v2/#overview) para ter acesso as tarefas. Toda vez que esse projeto é modificado com a adição de novas tarefas ou modificação de tarefas existentes, o bot notifica os usuários no discord.
  
  ## Exemplo de projeto no todoist
  ![todoistTasks](https://user-images.githubusercontent.com/39469125/132858748-f63568b5-c00c-4093-b9c4-a8af2f92dac6.png)
@@ -44,6 +44,9 @@ Usuários podem usar um comando para listar todas as tarefas, utilizando três t
 
 ## Instalação 👷‍♂️
 
+Seria bem mais complicado configurar o bot para que ele fosse facilmente adicionável e configurável com um clique em qualquer servidor do discord,
+então eu optei por não tomar este caminho. Entretanto, se você ainda quiser um bot que funcione de maneira idêntica ou similar ao que eu fiz, ele não é tão difícil de configurar e deixar pronto em produção. 
+ 
 ### Configurando .env
 
 criar arquivo chamado .env, no mesmo modelo de .env.example, e preenchê-lo com client_id da sua aplicação do discord, o token do seu bot de discord, assim como seu token de autenticação do todoist.
@@ -63,17 +66,20 @@ Em `todoistAPI.ts` o id do projeto do todoist (encontrado na url do site quando 
 Dentro do projeto, execute:
 `yarn` 
 
-
 ### Cadastrando os comandos: 
 
 Para que os comandos funcionem no servidor, eles precisam ser ativados com o comando:  `yarn deploy-command`.
 
-O script vai atualizar a lista de comandos para todos os servidores em que o bot se encontra.
+O script vai atualizar a lista de comandos para todos os servidores em que o bot se encontra. 
+Este script precisa ser executado uma vez no inicio do projeto e depois apenas quando um comando for modificado.
 
 ### Executando a API em modo de desenvolvimento
 
 `yarn dev`
 
+### Executando em modo de produção
+
+`yarn start`
 --- 
 
 ## Contato 💼
