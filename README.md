@@ -14,7 +14,7 @@ monke-task é um bot de discord feito com NodeJS e typescript. A Função do bot
 
 ## Comandos 👨‍💻
 
-Atualmente existem 3 comandos disponíveis para o bot:
+Atualmente existem 4 comandos disponíveis para o bot:
 
 - `/tarefas totais` - Lista todas as tarefas atribuídas por professores, assim como suas respectivas datas de vencimento e descrição.
 - `/tarefas hoje` - Lista todas as tarefas com data de entrega para hoje.
