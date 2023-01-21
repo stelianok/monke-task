@@ -37,7 +37,10 @@ client.on("interactionCreate", async (interaction: Interaction) => {
   const { commandName } = interaction;
 
   if (commandName === "tarefas") {
-    if (interaction.options.getSubcommand() === "totais") {
+    if (!interaction.options.getSubcommand(false)) {
+      await GetTasksAndSendMessage(interaction);
+    }
+    else if (interaction.options.getSubcommand() === "totais") {
       await GetTasksAndSendMessage(interaction);
     }
     else if (interaction.options.getSubcommand() === "hoje") {
@@ -46,6 +49,7 @@ client.on("interactionCreate", async (interaction: Interaction) => {
     else if (interaction.options.getSubcommand() === "amanhã") {
       await GetTasksAndSendMessage(interaction, "tomorrow");
     }
+
   }
   if (commandName == "provas") {
     await getExamsAndSendMessage(interaction);
