@@ -1,13 +1,12 @@
-compile = "./.config/build.sh"
 run = "yarn start"
-entrypoint = "index.js"
+entrypoint = "dist/index.js"
 hidden = [".build", ".config"]
 
 [packager]
 language = "nodejs"
 
 [packager.features]
-enabledForHosting = false
+enabledForHosting = true
 packageSearch = true
 guessImports = true
 
